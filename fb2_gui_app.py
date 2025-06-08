@@ -258,6 +258,17 @@ class FB2DatabaseManagerApp(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
+
+    # Load and apply QSS theme
+    try:
+        with open("darkstyle.qss", "r") as f:
+            theme_content = f.read()
+            app.setStyleSheet(theme_content)
+    except FileNotFoundError:
+        print("Stylesheet file 'darkstyle.qss' not found. Using default style.", file=sys.stderr)
+    except Exception as e:
+        print(f"Error loading stylesheet: {e}", file=sys.stderr)
+
     window = FB2DatabaseManagerApp()
     window.show()
     sys.exit(app.exec())
